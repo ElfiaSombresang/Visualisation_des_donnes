@@ -68,11 +68,6 @@ PIED_LABELS = {"Right": "Droitier", "Left": "Gaucher"}
 
 
 
-COLONNES_TABLEAU = [
-    "Name", "Age", "Position", "Pied", "League", "Team", "Nation",
-    "OVR", "PAC", "DRI", "SHO", "PAS", "DEF", "PHY",
-]
-
 # ----------------------------------------------------------------------
 # Valeurs par défaut des filtres numériques
 # ----------------------------------------------------------------------
@@ -86,7 +81,7 @@ DRI_DEFAUT = 70
 RADAR_STATS = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]
 
 COLONNES_TABLEAU = [
-    "Name", "Age", "Position", "League", "Team", "Nation",
+    "Name", "Age", "Position", "Pied", "League", "Team", "Nation",
     "OVR", "PAC", "DRI", "SHO", "PAS", "DEF", "PHY",
 ]
 
