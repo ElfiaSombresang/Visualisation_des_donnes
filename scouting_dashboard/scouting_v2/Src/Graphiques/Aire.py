@@ -82,7 +82,7 @@ def barres_top10(df_top10, critere_tri, stats=None):
     if not stats:
         stats = ["OVR", "PAC", "DRI"]
 
-    couleurs_stats = {"OVR": "#A16207", "PAC": "#8B5CF6", "DRI": "#3B82F6"}
+    couleurs_stats = {"OVR": "#3B82F6", "PAC": "#EC4899", "DRI": "#8B5CF6"}
 
     # df_top10 est déjà trié décroissant par critere_tri (via trier_profils).
     # Plotly place par défaut le 1er élément de category_orders en BAS du
