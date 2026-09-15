@@ -31,11 +31,11 @@ st.set_page_config(page_title="Scouting — Recherche de profils", layout="wide"
 df = charger_donnees()
 
 st.title("Outil de scouting — Recherche de profils")
-st.caption(
-    "Cellule de recrutement · Filtrez le vivier de joueurs par championnat, poste et niveau "
-    "pour faire émerger des profils correspondant à un besoin (ex. un ailier rapide et bon "
-    "dribbleur, hors des cinq grands championnats, OVR > 75)."
-)
+# st.caption(
+#     "Cellule de recrutement · Filtrez le vivier de joueurs par championnat, poste et niveau "
+#     "pour faire émerger des profils correspondant à un besoin (ex. un ailier rapide et bon "
+#     "dribbleur, hors des cinq grands championnats, OVR > 75)."
+# )
 
 # ----------------------------------------------------------------------
 # 2. FILTRES (sidebar) + APPLICATION DES FILTRES
