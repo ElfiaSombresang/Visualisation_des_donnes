@@ -17,11 +17,14 @@ from Src.Barre_filtre import afficher_filtres
 from Src.Analyse.Filtre import appliquer_filtres
 from Src.Analyse.Tri import trier_profils
 from Src.Graphiques.Scatter import scatter_vitesse_dribble
-from Src.Graphiques.Aire import (
+from scouting_dashboard.scouting_v2.Src.Graphiques.histo import (
     histogramme_dribble,
     histogramme_vitesse,
     barplot_pied_prefere,
     barres_top10,
+    radar_comparaison
+)
+from scouting_dashboard.scouting_v2.Src.Graphiques.radar import (
     radar_comparaison
 )
 
