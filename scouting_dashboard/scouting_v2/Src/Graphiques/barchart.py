@@ -32,7 +32,7 @@ def barres_top10(df_top10, critere_tri, stats=None):
     if not stats:
         stats = ["OVR", "PAC", "DRI"]
 
-    couleurs_stats = {"OVR": "#4C72B0", "PAC": "#55A868", "DRI": "#C44E52"}
+    couleurs_stats = {"OVR": "#4C72B0", "PAC": "#8B5CF6", "DRI": "#EC4899"}
     ordre_joueurs = df_top10.sort_values(by=critere_tri, ascending=True)["Name"].tolist()
 
     data_long = df_top10.melt(

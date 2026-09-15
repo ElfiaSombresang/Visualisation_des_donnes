@@ -91,8 +91,8 @@ COLONNES_TABLEAU = [
 # ----------------------------------------------------------------------
 # Habillage graphique
 # ----------------------------------------------------------------------
-COULEUR_HISTOGRAMME = "#3B82F6"
-COULEUR_BOXPLOT = "#55A868"
+COULEUR_HISTOGRAMME = "#4C72B0"
+COULEUR_BOXPLOT = "#4C72B0"
 COULEURS_PIED = {"Droitier": "#8B5CF6", "Gaucher": "#EC4899"}
 PALETTE_SCATTER = [
     [0.0, "#E65100"],   # orange

@@ -20,7 +20,7 @@ def histogramme_vitesse(df):
     """Distribution de la vitesse (PAC) dans le vivier filtré."""
     fig = px.histogram(
         df, x="PAC", nbins=20,
-        color_discrete_sequence=[COULEUR_BOXPLOT],
+        color_discrete_sequence=[COULEUR_HISTOGRAMME],
         labels={"PAC": "Vitesse (PAC)"},
     )
     fig.update_layout(yaxis_title="Nombre de joueurs", bargap=0.05, margin=dict(t=10, b=10))
