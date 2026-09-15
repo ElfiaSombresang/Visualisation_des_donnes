@@ -119,11 +119,17 @@ st.divider()
 # ----------------------------------------------------------------------
 # 5. TABLEAU DES MEILLEURS PROFILS
 # ----------------------------------------------------------------------
-st.subheader("Meilleurs profils correspondant aux critères")
+st.subheader("Top 10 des meilleurs profils")
 
-top_profiles = trier_profils(filtered, colonne="OVR", ascendant=False)
+critere_tri = st.radio(
+    "Trier par",
+    options=["OVR", "PAC", "DRI"],
+    horizontal=True,
+)
+
+top_profiles = trier_profils(filtered, colonne=critere_tri, ascendant=False, top_n=10)
 st.dataframe(top_profiles, use_container_width=True, height=400)
-st.caption(f"{len(top_profiles)} profil(s) au total, trié(s) par OVR décroissant.")
+st.caption(f"Top {len(top_profiles)} sur {len(filtered)} joueur(s) filtré(s), trié par {critere_tri} décroissant.")
 
 st.divider()
 

@@ -65,7 +65,13 @@ GROUPE_AILIER_PAR_DEFAUT = ["Ailier"]
 # Pied préféré
 # ----------------------------------------------------------------------
 PIED_LABELS = {"Right": "Droitier", "Left": "Gaucher"}
-COULEURS_PIED = {"Droitier": "#725C78", "Gaucher": "#B58D9B"}
+
+
+
+COLONNES_TABLEAU = [
+    "Name", "Age", "Position", "Pied", "League", "Team", "Nation",
+    "OVR", "PAC", "DRI", "SHO", "PAS", "DEF", "PHY",
+]
 
 # ----------------------------------------------------------------------
 # Valeurs par défaut des filtres numériques
@@ -89,6 +95,7 @@ COLONNES_TABLEAU = [
 # ----------------------------------------------------------------------
 COULEUR_HISTOGRAMME = "#4C72B0"
 COULEUR_BOXPLOT = "#55A868"
+COULEURS_PIED = {"Droitier": "#725C78", "Gaucher": "#B58D9B"}
 PALETTE_SCATTER = "Viridis"
 
 
