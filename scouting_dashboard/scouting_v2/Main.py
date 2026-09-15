@@ -30,7 +30,7 @@ st.set_page_config(page_title="Scouting — Recherche de profils", layout="wide"
 # ----------------------------------------------------------------------
 df = charger_donnees()
 
-st.title("⚽ Outil de scouting — Recherche de profils")
+st.title("Outil de scouting — Recherche de profils")
 st.caption(
     "Cellule de recrutement · Filtrez le vivier de joueurs par championnat, poste et niveau "
     "pour faire émerger des profils correspondant à un besoin (ex. un ailier rapide et bon "
@@ -56,7 +56,7 @@ if filtered.empty:
 # ----------------------------------------------------------------------
 # 3. BANDEAU DE CHIFFRES CLÉS
 # ----------------------------------------------------------------------
-st.subheader("📊 Chiffres clés du vivier sélectionné")
+st.subheader("Chiffres clés du vivier sélectionné")
 
 c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Joueurs trouvés", f"{len(filtered)}")
@@ -105,7 +105,7 @@ st.divider()
 # ----------------------------------------------------------------------
 # 5. TABLEAU DES MEILLEURS PROFILS
 # ----------------------------------------------------------------------
-st.subheader("🏆 Meilleurs profils correspondant aux critères")
+st.subheader("Meilleurs profils correspondant aux critères")
 
 top_profiles = trier_profils(filtered, colonne="OVR", ascendant=False)
 st.dataframe(top_profiles, use_container_width=True, height=400)
@@ -116,7 +116,7 @@ st.divider()
 # ----------------------------------------------------------------------
 # 6. BONUS : RADAR DE COMPARAISON (2-3 JOUEURS)
 # ----------------------------------------------------------------------
-st.subheader("🎯 Bonus — Comparer 2 ou 3 joueurs (radar)")
+st.subheader("Comparer 2 ou 3 joueurs")
 st.caption(
     "Un radar n'est lisible que pour 2 ou 3 joueurs à la fois, et l'ordre des axes influence "
     "la forme perçue : à utiliser pour affiner un choix final, pas pour trier tout le vivier."
