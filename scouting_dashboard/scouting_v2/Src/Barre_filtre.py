@@ -20,7 +20,7 @@ from Constantes.Input_data import (
 
 def afficher_filtres(df) -> dict:
     """Affiche les filtres dans la sidebar et renvoie les valeurs sélectionnées."""
-    st.sidebar.header("🔎 Filtres")
+    st.sidebar.header("Filtres")
 
     #Genre : Hommes / Femmes
     selected_genres_labels = st.sidebar.multiselect(
