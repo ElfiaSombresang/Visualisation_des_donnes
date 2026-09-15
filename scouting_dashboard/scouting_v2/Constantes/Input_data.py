@@ -5,13 +5,19 @@ listes de référence, valeurs par défaut des filtres, couleurs) est
 centralisée ici pour rester facile à modifier.
 """
 
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
 # ----------------------------------------------------------------------
 # Données source
 # ----------------------------------------------------------------------
-CSV_PATH = "all_players_clean.csv"
+# Chemin construit relativement à ce fichier (et non au répertoire courant
+# d'exécution) : Streamlit Cloud ne lance pas toujours le script depuis la
+# racine du projet, un chemin relatif "nu" casse donc en déploiement.
+RACINE_PROJET = Path(__file__).resolve().parent.parent
+CSV_PATH = str(RACINE_PROJET / "all_players_clean.csv")
 
 # ----------------------------------------------------------------------
 # Référentiel métier
