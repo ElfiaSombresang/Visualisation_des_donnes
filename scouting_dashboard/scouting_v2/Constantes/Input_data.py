@@ -36,6 +36,7 @@ BIG5 = [
 # "un ailier rapide et bon dribbleur, hors des 5 grands championnats, OVR > 75")
 # ----------------------------------------------------------------------
 POSITIONS_AILIERS_PAR_DEFAUT = ["LW", "RW"]
+GENRES = {"Hommes": "M", "Femmes": "F"}
 OVR_DEFAUT = 75
 PAC_DEFAUT = 75
 DRI_DEFAUT = 70

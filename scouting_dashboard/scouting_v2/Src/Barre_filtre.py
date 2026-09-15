@@ -13,6 +13,7 @@ from Constantes.Input_data import (
     OVR_DEFAUT,
     PAC_DEFAUT,
     DRI_DEFAUT,
+    GENRES,
 )
 
 
@@ -21,11 +22,19 @@ def afficher_filtres(df) -> dict:
     st.sidebar.header("🔎 Filtres")
 
     leagues_available = sorted(df["League"].dropna().unique().tolist())
+
+    col_a, col_b = st.sidebar.columns(2)
+    if col_a.button("Tout sélectionner", use_container_width=True):
+        st.session_state["leagues_filtre"] = leagues_available
+    if col_b.button("Tout désélectionner", use_container_width=True):
+        st.session_state["leagues_filtre"] = []
+
     selected_leagues = st.sidebar.multiselect(
         "Championnat",
         options=leagues_available,
         default=leagues_available,
-        help="Par défaut, tous les championnats sont inclus.",
+        key="leagues_filtre",
+        help="Champ déroulant à choix multiple : cliquez pour ajouter/retirer un championnat, ou tapez pour rechercher.",
     )
 
     exclude_big5 = st.sidebar.checkbox(
@@ -63,6 +72,21 @@ def afficher_filtres(df) -> dict:
         value=DRI_DEFAUT,
     )
 
+    age_min, age_max = int(df["Age"].min()), int(df["Age"].max())
+    age_range = st.sidebar.slider(
+        "Âge",
+        min_value=age_min,
+        max_value=age_max,
+        value=(age_min, age_max),
+    )
+
+    selected_genres_labels = st.sidebar.multiselect(
+        "Genre",
+        options=list(GENRES.keys()),
+        default=list(GENRES.keys()),
+    )
+    selected_genres = [GENRES[label] for label in selected_genres_labels]
+
     return {
         "leagues": selected_leagues,
         "exclude_big5": exclude_big5,
@@ -70,4 +94,6 @@ def afficher_filtres(df) -> dict:
         "ovr_min": ovr_min,
         "pac_min": pac_min,
         "dri_min": dri_min,
+        "age_range": age_range,
+        "genres": selected_genres,
     }
