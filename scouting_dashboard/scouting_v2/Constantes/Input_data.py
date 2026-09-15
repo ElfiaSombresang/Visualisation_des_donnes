@@ -35,7 +35,38 @@ BIG5 = [
 # Valeurs par défaut des filtres (calées sur le besoin du directeur sportif :
 # "un ailier rapide et bon dribbleur, hors des 5 grands championnats, OVR > 75")
 # ----------------------------------------------------------------------
-POSITIONS_AILIERS_PAR_DEFAUT = ["LW", "RW"]
+# ----------------------------------------------------------------------
+# Postes : libellé français lisible + regroupement par famille
+# ----------------------------------------------------------------------
+POSITIONS_LABELS = {
+    "GK":  "Gardien",
+    "CB":  "Défenseur central",
+    "LB":  "Arrière gauche",
+    "RB":  "Arrière droit",
+    "CDM": "Milieu défensif",
+    "CM":  "Milieu central",
+    "CAM": "Milieu offensif",
+    "LM":  "Milieu gauche",
+    "RM":  "Milieu droit",
+    "LW":  "Ailier gauche",
+    "RW":  "Ailier droit",
+    "ST":  "Attaquant",
+}
+
+# Regroupement par famille : sélectionner "Ailier" renvoie LW + RW, etc.
+POSITIONS_GROUPES = {
+    "Gardien":            ["GK"],
+    "Défenseur central":  ["CB"],
+    "Arrière latéral":    ["LB", "RB"],
+    "Milieu défensif":    ["CDM"],
+    "Milieu central":     ["CM"],
+    "Milieu offensif":    ["CAM"],
+    "Milieu latéral":     ["LM", "RM"],
+    "Ailier":             ["LW", "RW"],
+    "Attaquant":          ["ST"],
+}
+
+GROUPE_AILIER_PAR_DEFAUT = ["Ailier"]
 GENRES = {"Hommes": "M", "Femmes": "F"}
 OVR_DEFAUT = 75
 PAC_DEFAUT = 75

@@ -9,7 +9,8 @@ délégué à Src.Analyse.Filtre pour séparer "affichage" et "calcul".
 import streamlit as st
 
 from Constantes.Input_data import (
-    POSITIONS_AILIERS_PAR_DEFAUT,
+    POSITIONS_GROUPES,
+    GROUPE_AILIER_PAR_DEFAUT,
     OVR_DEFAUT,
     PAC_DEFAUT,
     DRI_DEFAUT,
