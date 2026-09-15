@@ -1,105 +1,101 @@
 """
-Constantes du projet + fonction de chargement des données.
-Toute valeur "en dur" utilisée ailleurs dans l'app (chemin du fichier,
-listes de référence, valeurs par défaut des filtres, couleurs) est
-centralisée ici pour rester facile à modifier.
+Graphiques "en aire" : histogrammes (distribution), barplot pied préféré
+(comparaison de groupes) et radar (bonus, comparaison de 2-3 joueurs).
 """
 
-from pathlib import Path
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
 
-import pandas as pd
-import streamlit as st
-
-# ----------------------------------------------------------------------
-# Données source
-# ----------------------------------------------------------------------
-# Chemin construit relativement à ce fichier (et non au répertoire courant
-# d'exécution) : Streamlit Cloud ne lance pas toujours le script depuis la
-# racine du projet, un chemin relatif "nu" casse donc en déploiement.
-RACINE_PROJET = Path(__file__).resolve().parent.parent
-CSV_PATH = str(RACINE_PROJET / "all_players_clean.csv")
-
-# ----------------------------------------------------------------------
-# Référentiel métier
-# ----------------------------------------------------------------------
-# Les 5 grands championnats au sens sportif du terme
-BIG5 = [
-    "Premier League",
-    "LALIGA EA SPORTS",
-    "Bundesliga",
-    "Serie A Enilive",
-    "Ligue 1 McDonald's",
-]
-
-# Filtre / affichage pied préféré
-PIED_LABELS = {"Right": "Droitier", "Left": "Gaucher"}
-
-# ----------------------------------------------------------------------
-# Valeurs par défaut des filtres (calées sur le besoin du directeur sportif :
-# "un ailier rapide et bon dribbleur, hors des 5 grands championnats, OVR > 75")
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-# Postes : libellé français lisible + regroupement par famille
-# ----------------------------------------------------------------------
-POSITIONS_LABELS = {
-    "GK":  "Gardien",
-    "CB":  "Défenseur central",
-    "LB":  "Arrière gauche",
-    "RB":  "Arrière droit",
-    "CDM": "Milieu défensif",
-    "CM":  "Milieu central",
-    "CAM": "Milieu offensif",
-    "LM":  "Milieu gauche",
-    "RM":  "Milieu droit",
-    "LW":  "Ailier gauche",
-    "RW":  "Ailier droit",
-    "ST":  "Attaquant",
-}
-
-# Regroupement par famille : sélectionner "Ailier" renvoie LW + RW, etc.
-POSITIONS_GROUPES = {
-    "Gardien":                  ["GK"],
-    "Défenseur central":        ["CB"],
-    "Arrière latéral droit":    ["RB"],
-    "Arrière latéral gauche":   ["LB"],
-    "Milieu défensif":          ["CDM"],
-    "Milieu central":           ["CM"],
-    "Milieu offensif":          ["CAM"],
-    "Milieu latéral droit":     ["RM"],
-    "Milieu latéral gauche":    ["LM"],
-    "Ailier droit":             ["RW"],
-    "Ailier gauche":            ["LW"],
-    "Attaquant":                ["ST"],
-}
-
-GROUPE_AILIER_PAR_DEFAUT = ["Ailier droit", "Ailier gauche"]
-GENRES = {"Hommes": "M", "Femmes": "F"}
-OVR_DEFAUT = 75
-PAC_DEFAUT = 75
-DRI_DEFAUT = 70
-
-# ----------------------------------------------------------------------
-# Colonnes utilisées pour le radar et le tableau final
-# ----------------------------------------------------------------------
-RADAR_STATS = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]
-
-COLONNES_TABLEAU = [
-    "Name", "Age", "Position", "League", "Team", "Nation",
-    "OVR", "PAC", "DRI", "SHO", "PAS", "DEF", "PHY",
-]
-
-# ----------------------------------------------------------------------
-# Habillage graphique (une seule couleur par graphique = respect
-# de la contrainte "pas plus de 6 couleurs" ; palette séquentielle
-# réservée aux variables continues comme OVR)
-# ----------------------------------------------------------------------
-COULEUR_HISTOGRAMME = "#6B8499"
-COULEUR_BOXPLOT = "#8A7B9B"
-COULEURS_PIED = {"Droitier": "#725C78", "Gaucher": "#B58D9B"}
-PALETTE_SCATTER = "Viridis"
+from Constantes.Input_data import (
+    COULEUR_HISTOGRAMME,
+    COULEUR_BOXPLOT,
+    RADAR_STATS,
+    PIED_LABELS,
+    COULEURS_PIED,
+)
 
 
-@st.cache_data
-def charger_donnees(path: str = CSV_PATH) -> pd.DataFrame:
-    """Charge le dataset et le met en cache pour éviter de le relire à chaque interaction."""
-    return pd.read_csv(path)
+def histogramme_dribble(df):
+    """Distribution de la note de dribble (DRI) dans le vivier filtré."""
+    fig = px.histogram(
+        df,
+        x="DRI",
+        nbins=20,
+        color_discrete_sequence=[COULEUR_HISTOGRAMME],
+        labels={"DRI": "Note de dribble (DRI)"},
+    )
+    fig.update_layout(
+        yaxis_title="Nombre de joueurs",
+        bargap=0.05,
+        margin=dict(t=10, b=10),
+    )
+    return fig
+
+
+def histogramme_vitesse(df):
+    """Distribution de la vitesse (PAC) dans le vivier filtré."""
+    fig = px.histogram(
+        df,
+        x="PAC",
+        nbins=20,
+        color_discrete_sequence=[COULEUR_BOXPLOT],
+        labels={"PAC": "Vitesse (PAC)"},
+    )
+    fig.update_layout(
+        yaxis_title="Nombre de joueurs",
+        bargap=0.05,
+        margin=dict(t=10, b=10),
+    )
+    return fig
+
+
+def barplot_pied_prefere(df):
+    """Compare le niveau moyen (OVR) des joueurs droitiers vs gauchers dans la sélection."""
+    df_pied = df.copy()
+    df_pied["Pied"] = df_pied["Preferred.foot"].map(PIED_LABELS)
+
+    resume = (
+        df_pied.groupby("Pied")
+        .agg(Nombre=("Name", "count"), OVR_moyen=("OVR", "mean"))
+        .reset_index()
+        .sort_values("Nombre", ascending=False)
+    )
+
+    fig = px.bar(
+        resume,
+        x="Pied",
+        y="OVR_moyen",
+        color="Pied",
+        color_discrete_map=COULEURS_PIED,
+        text=resume["Nombre"].apply(lambda n: f"n={n}"),
+        labels={"Pied": "Pied préféré", "OVR_moyen": "OVR moyen"},
+    )
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        margin=dict(t=30, b=10),
+        showlegend=False,
+        yaxis_range=[0, resume["OVR_moyen"].max() * 1.15],
+    )
+    return fig
+
+
+def radar_comparaison(df, noms_joueurs: list):
+    """Radar Matplotlib comparant 2 ou 3 joueurs sur PAC/SHO/PAS/DRI/DEF/PHY."""
+    angles = np.linspace(0, 2 * np.pi, len(RADAR_STATS), endpoint=False).tolist()
+    angles += angles[:1]
+
+    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    for nom in noms_joueurs:
+        ligne = df[df["Name"] == nom].iloc[0]
+        valeurs = [ligne[s] for s in RADAR_STATS]
+        valeurs += valeurs[:1]
+        ax.plot(angles, valeurs, linewidth=2, label=nom)
+        ax.fill(angles, valeurs, alpha=0.1)
+
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(RADAR_STATS)
+    ax.set_ylim(0, 100)
+    ax.set_title("Comparaison de profils", pad=20)
+    ax.legend(loc="upper right", bbox_to_anchor=(1.35, 1.1))
+    return fig
