@@ -5,7 +5,7 @@ nuage de points (Scatter.py), ces trois graphiques représentent des
 surfaces/volumes (barres, boîtes, aires remplies) plutôt que des points
 individuels.
 """
-
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
