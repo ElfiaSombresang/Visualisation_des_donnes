@@ -35,7 +35,7 @@ def histogramme_vitesse(df):
         df,
         x="PAC",
         nbins=20,
-        color_discrete_sequence=[COULEUR_BOXPLOT],
+        color_discrete_sequence=[COULEUR_HISTOGRAMME],
         labels={"PAC": "Vitesse (PAC)"},
     )
     fig.update_layout(
