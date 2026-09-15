@@ -63,5 +63,8 @@ def scatter_vitesse_dribble(df):
     # leurs annotations servent de repère de lecture
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
+    fig.update_xaxes(showticklabels=False, showgrid=False, zeroline=False)
+    fig.update_yaxes(showticklabels=False, showgrid=False, zeroline=False)
+
 
     return fig
