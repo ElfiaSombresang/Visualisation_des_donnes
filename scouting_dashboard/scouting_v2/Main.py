@@ -20,7 +20,6 @@ from Src.Graphiques.Scatter import scatter_vitesse_dribble
 from Src.Graphiques.Aire import (
     histogramme_dribble,
     histogramme_vitesse,
-    boxplot_vitesse_par_championnat,
     radar_comparaison,
 )
 
