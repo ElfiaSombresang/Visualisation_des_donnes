@@ -21,6 +21,7 @@ def appliquer_filtres(df: pd.DataFrame, filtres: dict) -> pd.DataFrame:
         & (df["DRI"] >= filtres["dri_min"])
         & df["Age"].between(age_min, age_max)
         & df["gender"].isin(filtres["genres"])
+        & df["Preferred.foot"].isin(filtres["pieds"])
     )
     resultat = df[masque].copy()
 

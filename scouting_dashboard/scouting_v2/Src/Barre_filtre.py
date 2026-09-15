@@ -15,6 +15,7 @@ from Constantes.Input_data import (
     GENRES,
     POSITIONS_GROUPES,
     GROUPE_AILIER_PAR_DEFAUT,
+    PIED_LABELS,
 )
 
 
@@ -39,6 +40,20 @@ def afficher_filtres(df) -> dict:
         max_value=age_max,
         value=(age_min, age_max),
     )
+
+    # --- Pied préféré ---
+    selected_pieds_labels = st.sidebar.multiselect(
+        "Pied préféré",
+        options=list(PIED_LABELS.values()),
+        default=list(PIED_LABELS.values()),
+    )
+    # on retrouve les valeurs brutes ("Right"/"Left") à partir des libellés cochés
+    selected_pieds = [
+        valeur_brute
+        for valeur_brute, label in PIED_LABELS.items()
+        if label in selected_pieds_labels
+    ]
+
 
     # Championnat : multiselect + boutons "Tout sélectionner / Tout désélectionner"
     leagues_available = sorted(df["League"].dropna().unique().tolist())
@@ -112,4 +127,5 @@ def afficher_filtres(df) -> dict:
         "dri_min": dri_min,
         "age_range": age_range,
         "genres": selected_genres,
+        "pieds": selected_pieds,
     }
