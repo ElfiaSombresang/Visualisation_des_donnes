@@ -84,9 +84,13 @@ def barres_top10(df_top10, critere_tri, stats=None):
 
     couleurs_stats = {"OVR": "#4C72B0", "PAC": "#55A868", "DRI": "#C44E52"}
 
-    # df_top10 est déjà trié décroissant par critere_tri (via trier_profils) :
-    # on garde cet ordre tel quel comme ordre des catégories.
-    ordre_joueurs = df_top10["Name"].tolist()
+    # df_top10 est déjà trié décroissant par critere_tri (via trier_profils).
+    # Plotly place par défaut le 1er élément de category_orders en BAS du
+    # graphique horizontal : on lui donne donc l'ordre croissant (le moins
+    # bon en bas, le meilleur en haut).
+    ordre_joueurs = (
+        df_top10.sort_values(by=critere_tri, ascending=False)["Name"].tolist()
+    )
 
     data_long = df_top10.melt(
         id_vars="Name",
@@ -112,9 +116,6 @@ def barres_top10(df_top10, critere_tri, stats=None):
         legend_title_text="",
         height=450,
     )
-    # Plotly place par défaut la première catégorie en bas : on inverse
-    # l'axe pour que le 1er du classement (df_top10[0]) apparaisse en haut.
-    fig.update_yaxes(autorange="reversed")
     return fig
 
 
