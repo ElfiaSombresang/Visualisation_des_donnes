@@ -1,0 +1,60 @@
+"""
+Constantes du projet + fonction de chargement des données.
+Toute valeur "en dur" utilisée ailleurs dans l'app (chemin du fichier,
+listes de référence, valeurs par défaut des filtres, couleurs) est
+centralisée ici pour rester facile à modifier.
+"""
+
+import pandas as pd
+import streamlit as st
+
+# ----------------------------------------------------------------------
+# Données source
+# ----------------------------------------------------------------------
+CSV_PATH = "all_players_clean.csv"
+
+# ----------------------------------------------------------------------
+# Référentiel métier
+# ----------------------------------------------------------------------
+# Les 5 grands championnats au sens sportif du terme
+BIG5 = [
+    "Premier League",
+    "LALIGA EA SPORTS",
+    "Bundesliga",
+    "Serie A Enilive",
+    "Ligue 1 McDonald's",
+]
+
+# ----------------------------------------------------------------------
+# Valeurs par défaut des filtres (calées sur le besoin du directeur sportif :
+# "un ailier rapide et bon dribbleur, hors des 5 grands championnats, OVR > 75")
+# ----------------------------------------------------------------------
+POSITIONS_AILIERS_PAR_DEFAUT = ["LW", "RW"]
+OVR_DEFAUT = 75
+PAC_DEFAUT = 75
+DRI_DEFAUT = 70
+
+# ----------------------------------------------------------------------
+# Colonnes utilisées pour le radar et le tableau final
+# ----------------------------------------------------------------------
+RADAR_STATS = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]
+
+COLONNES_TABLEAU = [
+    "Name", "Age", "Position", "League", "Team", "Nation",
+    "OVR", "PAC", "DRI", "SHO", "PAS", "DEF", "PHY",
+]
+
+# ----------------------------------------------------------------------
+# Habillage graphique (une seule couleur par graphique = respect
+# de la contrainte "pas plus de 6 couleurs" ; palette séquentielle
+# réservée aux variables continues comme OVR)
+# ----------------------------------------------------------------------
+COULEUR_HISTOGRAMME = "#4C72B0"
+COULEUR_BOXPLOT = "#55A868"
+PALETTE_SCATTER = "Viridis"
+
+
+@st.cache_data
+def charger_donnees(path: str = CSV_PATH) -> pd.DataFrame:
+    """Charge le dataset et le met en cache pour éviter de le relire à chaque interaction."""
+    return pd.read_csv(path)
