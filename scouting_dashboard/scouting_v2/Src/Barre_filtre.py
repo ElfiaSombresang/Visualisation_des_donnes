@@ -22,19 +22,11 @@ def afficher_filtres(df) -> dict:
     st.sidebar.header("🔎 Filtres")
 
     leagues_available = sorted(df["League"].dropna().unique().tolist())
-
-    col_a, col_b = st.sidebar.columns(2)
-    if col_a.button("Tout sélectionner", use_container_width=True):
-        st.session_state["leagues_filtre"] = leagues_available
-    if col_b.button("Tout désélectionner", use_container_width=True):
-        st.session_state["leagues_filtre"] = []
-
     selected_leagues = st.sidebar.multiselect(
         "Championnat",
         options=leagues_available,
         default=leagues_available,
-        key="leagues_filtre",
-        help="Champ déroulant à choix multiple : cliquez pour ajouter/retirer un championnat, ou tapez pour rechercher.",
+        help="Par défaut, tous les championnats sont inclus.",
     )
 
     exclude_big5 = st.sidebar.checkbox(
