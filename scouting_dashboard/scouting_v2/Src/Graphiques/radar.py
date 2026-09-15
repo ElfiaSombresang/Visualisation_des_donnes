@@ -1,7 +1,7 @@
-import pandas as pd
+"""Graphique bonus : radar de comparaison de joueurs."""
+
 import numpy as np
 import matplotlib.pyplot as plt
-import plotly.express as px
 
 from Constantes.Input_data import RADAR_STATS
 
