@@ -46,31 +46,31 @@ def histogramme_vitesse(df):
 
 
 def barplot_pied_prefere(df):
-    """Compare le niveau moyen (OVR) des joueurs droitiers vs gauchers dans la sélection."""
+    """Nombre de joueurs droitiers vs gauchers dans la sélection."""
     df_pied = df.copy()
     df_pied["Pied"] = df_pied["Preferred.foot"].map(PIED_LABELS)
 
     resume = (
-        df_pied.groupby("Pied")
-        .agg(Nombre=("Name", "count"), OVR_moyen=("OVR", "mean"))
+        df_pied["Pied"]
+        .value_counts()
         .reset_index()
-        .sort_values("Nombre", ascending=False)
     )
+    resume.columns = ["Pied", "Nombre"]
 
     fig = px.bar(
         resume,
         x="Pied",
-        y="OVR_moyen",
+        y="Nombre",
         color="Pied",
         color_discrete_map=COULEURS_PIED,
-        text=resume["Nombre"].apply(lambda n: f"n={n}"),
-        labels={"Pied": "Pied préféré", "OVR_moyen": "OVR moyen"},
+        text="Nombre",
+        labels={"Pied": "Pied préféré", "Nombre": "Nombre de joueurs"},
     )
     fig.update_traces(textposition="outside")
     fig.update_layout(
         margin=dict(t=30, b=10),
         showlegend=False,
-        yaxis_range=[0, resume["OVR_moyen"].max() * 1.15],  # barres à zéro, honnêteté visuelle
+        yaxis_range=[0, resume["Nombre"].max() * 1.15],  # barres à zéro, honnêteté visuelle
     )
     return fig
 
