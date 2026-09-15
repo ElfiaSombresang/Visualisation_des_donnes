@@ -24,7 +24,9 @@ def scatter_vitesse_dribble(df):
         hover_data=["Name", "Team", "League", "Age"],
         labels={"PAC": "Vitesse", "DRI": "Dribble", "OVR": "OVR"},
     )
-    fig.update_layout(margin=dict(t=10, b=10))
+    # marges élargies pour laisser la place aux annotations (haut) et à la
+    # colorbar OVR (droite), sinon le texte est rogné par le cadre
+    fig.update_layout(margin=dict(t=60, b=10, l=10, r=90))
 
     # --- Repères statistiques sur l'axe X (PAC) ---
     q1_x, med_x, q3_x = df["PAC"].quantile([0.25, 0.5, 0.75])
@@ -38,9 +40,10 @@ def scatter_vitesse_dribble(df):
             line_dash=style,
             line_color="grey",
             opacity=0.6,
-            annotation_text=f"{label} PAC = {valeur:.0f}",
-            annotation_position="top",
-            annotation_font_size=10,
+            annotation_text=f"{label}<br>{valeur:.0f}",
+            annotation_position="top left",   # évite le débordement en haut à droite
+            annotation_yshift=-5,             # ramène le texte à l'intérieur du cadre
+            annotation_font_size=9,
         )
 
     # --- Repères statistiques sur l'axe Y (DRI) ---
@@ -55,9 +58,9 @@ def scatter_vitesse_dribble(df):
             line_dash=style,
             line_color="grey",
             opacity=0.6,
-            annotation_text=f"{label} DRI = {valeur:.0f}",
-            annotation_position="right",
-            annotation_font_size=10,
+            annotation_text=f"{label} {valeur:.0f}",
+            annotation_position="left",       # côté gauche : la colorbar OVR est à droite
+            annotation_font_size=9,
         )
 
     return fig
