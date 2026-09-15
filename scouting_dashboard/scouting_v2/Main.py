@@ -75,30 +75,30 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown("#### Distribution du dribble (DRI)")
     st.plotly_chart(histogramme_dribble(filtered), use_container_width=True)
-    st.caption(
-        "**Pourquoi un histogramme ?** DRI est une variable quantitative continue : "
-        "l'histogramme montre si le vivier sélectionné est homogène en dribble ou s'il "
-        "contient quelques profils nettement au-dessus du lot."
-    )
+    # st.caption(
+    #     "**Pourquoi un histogramme ?** DRI est une variable quantitative continue : "
+    #     "l'histogramme montre si le vivier sélectionné est homogène en dribble ou s'il "
+    #     "contient quelques profils nettement au-dessus du lot."
+    # )
 
 with col2:
     st.markdown("#### Vitesse (PAC) par championnat")
     st.plotly_chart(boxplot_vitesse_par_championnat(filtered), use_container_width=True)
-    st.caption(
-        "**Pourquoi un boxplot ?** Il compare médiane et dispersion de PAC entre "
-        "championnats (quantitative × catégorielle) sur un axe commun, pour repérer où "
-        "se trouvent les joueurs les plus rapides (limité aux 8 championnats les plus "
-        "représentés dans la sélection, pour la lisibilité)."
-    )
+    # st.caption(
+    #     "**Pourquoi un boxplot ?** Il compare médiane et dispersion de PAC entre "
+    #     "championnats (quantitative × catégorielle) sur un axe commun, pour repérer où "
+    #     "se trouvent les joueurs les plus rapides (limité aux 8 championnats les plus "
+    #     "représentés dans la sélection, pour la lisibilité)."
+    # )
 
 st.markdown("#### Relation entre vitesse (PAC) et dribble (DRI)")
 st.plotly_chart(scatter_vitesse_dribble(filtered), use_container_width=True)
-st.caption(
-    "**Pourquoi un nuage de points ?** C'est la question métier elle-même : croiser deux "
-    "variables quantitatives (vitesse et dribble) pour repérer les joueurs qui cumulent les "
-    "deux qualités (en haut à droite) ; la couleur (dégradé séquentiel) indique leur niveau "
-    "général (OVR)."
-)
+# st.caption(
+#     "**Pourquoi un nuage de points ?** C'est la question métier elle-même : croiser deux "
+#     "variables quantitatives (vitesse et dribble) pour repérer les joueurs qui cumulent les "
+#     "deux qualités (en haut à droite) ; la couleur (dégradé séquentiel) indique leur niveau "
+#     "général (OVR)."
+# )
 
 st.divider()
 
@@ -117,10 +117,10 @@ st.divider()
 # 6. BONUS : RADAR DE COMPARAISON (2-3 JOUEURS)
 # ----------------------------------------------------------------------
 st.subheader("Comparer 2 ou 3 joueurs")
-st.caption(
-    "Un radar n'est lisible que pour 2 ou 3 joueurs à la fois, et l'ordre des axes influence "
-    "la forme perçue : à utiliser pour affiner un choix final, pas pour trier tout le vivier."
-)
+# st.caption(
+#     "Un radar n'est lisible que pour 2 ou 3 joueurs à la fois, et l'ordre des axes influence "
+#     "la forme perçue : à utiliser pour affiner un choix final, pas pour trier tout le vivier."
+# )
 
 player_names = top_profiles["Name"].tolist()
 selected_players = st.multiselect(
