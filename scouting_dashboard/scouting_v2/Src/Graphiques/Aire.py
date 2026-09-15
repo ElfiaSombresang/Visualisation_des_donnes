@@ -78,11 +78,15 @@ def barplot_pied_prefere(df):
 
 def barres_top10(df_top10, critere_tri, stats=None):
     """Barres horizontales : stats choisies (OVR/PAC/DRI) des joueurs du top 10,
-    classés dans l'ordre décroissant du critère choisi."""
+    triés par ordre décroissant du critère choisi (meilleur joueur en haut)."""
     if not stats:
         stats = ["OVR", "PAC", "DRI"]
 
     couleurs_stats = {"OVR": "#4C72B0", "PAC": "#55A868", "DRI": "#C44E52"}
+
+    # df_top10 est déjà trié décroissant par critere_tri (via trier_profils) :
+    # on garde cet ordre tel quel comme ordre des catégories.
+    ordre_joueurs = df_top10["Name"].tolist()
 
     data_long = df_top10.melt(
         id_vars="Name",
@@ -90,9 +94,6 @@ def barres_top10(df_top10, critere_tri, stats=None):
         var_name="Statistique",
         value_name="Valeur",
     )
-
-    # premier joueur du classement en haut du graphique
-    ordre_joueurs = df_top10.sort_values(by=critere_tri, ascending=True)["Name"].tolist()
 
     fig = px.bar(
         data_long,
@@ -111,6 +112,9 @@ def barres_top10(df_top10, critere_tri, stats=None):
         legend_title_text="",
         height=450,
     )
+    # Plotly place par défaut la première catégorie en bas : on inverse
+    # l'axe pour que le 1er du classement (df_top10[0]) apparaisse en haut.
+    fig.update_yaxes(autorange="reversed")
     return fig
 
 
