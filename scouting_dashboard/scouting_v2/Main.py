@@ -21,8 +21,7 @@ from scouting_dashboard.scouting_v2.Src.Graphiques.histo import (
     histogramme_dribble,
     histogramme_vitesse,
     barplot_pied_prefere,
-    barres_top10,
-    radar_comparaison
+    barres_top10
 )
 from scouting_dashboard.scouting_v2.Src.Graphiques.radar import (
     radar_comparaison
