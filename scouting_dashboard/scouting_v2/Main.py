@@ -95,16 +95,7 @@ with col2:
 col3, col4 = st.columns(2)
 
 with col3:
-    st.markdown("#### Relation entre vitesse (PAC) et dribble (DRI)")
-    st.plotly_chart(scatter_vitesse_dribble(filtered), use_container_width=True)
-    # st.caption(
-    #     "**Pourquoi un nuage de points ?** Croiser vitesse et dribble permet de repérer "
-    #     "les joueurs qui cumulent les deux qualités. Les lignes Q1/médiane/Q3 (grises) "
-    #     "situent chaque joueur par rapport au reste du vivier filtré."
-    # )
-
-with col4:
-    st.markdown("#### Niveau moyen : droitiers vs gauchers")
+    st.markdown("#### Nombre de joueurs droitiers vs gauchers")
     st.plotly_chart(barplot_pied_prefere(filtered), use_container_width=True)
     # st.caption(
     #     "**Pourquoi un barplot ?** Compare une variable quantitative (OVR moyen) entre "
@@ -112,6 +103,16 @@ with col4:
     #     "groupe (n=) est affiché pour éviter de comparer des moyennes peu fiables sur un "
     #     "petit échantillon."
     # )
+
+with col4:
+    st.markdown("#### Niveau des joueurs : vitesse vs dribble")
+    st.plotly_chart(scatter_vitesse_dribble(filtered), use_container_width=True)
+    # st.caption(
+    #     "**Pourquoi un nuage de points ?** Croiser vitesse et dribble permet de repérer "
+    #     "les joueurs qui cumulent les deux qualités. Les lignes Q1/médiane/Q3 (grises) "
+    #     "situent chaque joueur par rapport au reste du vivier filtré."
+    # )
+
 
 st.divider()
 
