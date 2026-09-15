@@ -31,6 +31,9 @@ BIG5 = [
     "Ligue 1 McDonald's",
 ]
 
+# Filtre / affichage pied préféré
+PIED_LABELS = {"Right": "Droitier", "Left": "Gaucher"}
+
 # ----------------------------------------------------------------------
 # Valeurs par défaut des filtres (calées sur le besoin du directeur sportif :
 # "un ailier rapide et bon dribbleur, hors des 5 grands championnats, OVR > 75")
@@ -90,8 +93,9 @@ COLONNES_TABLEAU = [
 # de la contrainte "pas plus de 6 couleurs" ; palette séquentielle
 # réservée aux variables continues comme OVR)
 # ----------------------------------------------------------------------
-COULEUR_HISTOGRAMME = "#4C72B0"
-COULEUR_BOXPLOT = "#55A868"
+COULEUR_HISTOGRAMME = "#6B8499"
+COULEUR_BOXPLOT = "#8A7B9B"
+COULEURS_PIED = {"Droitier": "#725C78", "Gaucher": "#B58D9B"}
 PALETTE_SCATTER = "Viridis"
 
 

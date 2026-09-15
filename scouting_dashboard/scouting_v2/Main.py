@@ -20,7 +20,8 @@ from Src.Graphiques.Scatter import scatter_vitesse_dribble
 from Src.Graphiques.Aire import (
     histogramme_dribble,
     histogramme_vitesse,
-    radar_comparaison,
+    barplot_pied_prefere,
+    radar_comparaison
 )
 
 st.set_page_config(page_title="Scouting — Recherche de profils", layout="wide")
@@ -100,6 +101,16 @@ with col3:
     #     "**Pourquoi un nuage de points ?** Croiser vitesse et dribble permet de repérer "
     #     "les joueurs qui cumulent les deux qualités. Les lignes Q1/médiane/Q3 (grises) "
     #     "situent chaque joueur par rapport au reste du vivier filtré."
+    # )
+
+with col4:
+    st.markdown("#### Niveau moyen : droitiers vs gauchers")
+    st.plotly_chart(barplot_pied_prefere(filtered), use_container_width=True)
+    # st.caption(
+    #     "**Pourquoi un barplot ?** Compare une variable quantitative (OVR moyen) entre "
+    #     "deux groupes d'une variable catégorielle (pied préféré) ; l'effectif de chaque "
+    #     "groupe (n=) est affiché pour éviter de comparer des moyennes peu fiables sur un "
+    #     "petit échantillon."
     # )
 
 st.divider()

@@ -10,8 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-from Constantes.Input_data import COULEUR_HISTOGRAMME, COULEUR_BOXPLOT, RADAR_STATS
-
+from Constantes.Input_data import COULEUR_HISTOGRAMME, COULEUR_BOXPLOT, RADAR_STATS, PIED_LABELS, COULEURS_PIED
 
 def histogramme_dribble(df):
     """Distribution de la note de dribble (DRI) dans le vivier filtré."""
@@ -42,6 +41,36 @@ def histogramme_vitesse(df):
         yaxis_title="Nombre de joueurs",
         bargap=0.05,
         margin=dict(t=10, b=10),
+    )
+    return fig
+
+
+def barplot_pied_prefere(df):
+    """Compare le niveau moyen (OVR) des joueurs droitiers vs gauchers dans la sélection."""
+    df_pied = df.copy()
+    df_pied["Pied"] = df_pied["Preferred.foot"].map(PIED_LABELS)
+
+    resume = (
+        df_pied.groupby("Pied")
+        .agg(Nombre=("Name", "count"), OVR_moyen=("OVR", "mean"))
+        .reset_index()
+        .sort_values("Nombre", ascending=False)
+    )
+
+    fig = px.bar(
+        resume,
+        x="Pied",
+        y="OVR_moyen",
+        color="Pied",
+        color_discrete_map=COULEURS_PIED,
+        text=resume["Nombre"].apply(lambda n: f"n={n}"),
+        labels={"Pied": "Pied préféré", "OVR_moyen": "OVR moyen"},
+    )
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        margin=dict(t=30, b=10),
+        showlegend=False,
+        yaxis_range=[0, resume["OVR_moyen"].max() * 1.15],  # barres à zéro, honnêteté visuelle
     )
     return fig
 
