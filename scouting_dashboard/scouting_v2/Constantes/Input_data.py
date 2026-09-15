@@ -91,9 +91,9 @@ COLONNES_TABLEAU = [
 # ----------------------------------------------------------------------
 # Habillage graphique
 # ----------------------------------------------------------------------
-COULEUR_HISTOGRAMME = "#4C72B0"
+COULEUR_HISTOGRAMME = "#3B82F6"
 COULEUR_BOXPLOT = "#55A868"
-COULEURS_PIED = {"Droitier": "#725C78", "Gaucher": "#B58D9B"}
+COULEURS_PIED = {"Droitier": "#8B5CF6", "Gaucher": "#EC4899"}
 PALETTE_SCATTER = "Viridis"
 
 
