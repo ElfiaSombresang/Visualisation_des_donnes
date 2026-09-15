@@ -21,7 +21,8 @@ from Src.Graphiques.Aire import (
     histogramme_dribble,
     histogramme_vitesse,
     barplot_pied_prefere,
-    radar_comparaison
+    barres_top10_vs_moyenne,
+    radar_comparaison,
 )
 
 st.set_page_config(page_title="Scouting — Recherche de profils", layout="wide")
@@ -130,6 +131,17 @@ critere_tri = st.radio(
 top_profiles = trier_profils(filtered, colonne=critere_tri, ascendant=False, top_n=10)
 st.dataframe(top_profiles, use_container_width=True, height=400)
 st.caption(f"Top {len(top_profiles)} sur {len(filtered)} joueur(s) filtré(s), trié par {critere_tri} décroissant.")
+
+st.markdown("#### Top 10 vs moyenne du vivier filtré")
+st.plotly_chart(
+    barres_top10_vs_moyenne(top_profiles, filtered, critere_tri),
+    use_container_width=True,
+)
+# st.caption(
+#     "**Pourquoi ce graphique ?** Il replace chaque joueur du top 10 par rapport à la "
+#     "moyenne réelle du vivier filtré (barre grise), pour juger si l'écart est significatif "
+#     "ou si le top 10 reste proche du niveau général de la sélection."
+# )
 
 st.divider()
 
