@@ -156,7 +156,7 @@ st.caption(
 
 if st.button("Récupérer les valeurs marchandes (PlayerElo)"):
     try:
-        with st.spinner("Interrogation de l'API PlayerElo..."):
+        with st.spinner("Interrogation de l'API PlayerElo (peut prendre 1-2 minutes, débit limité)..."):
             valeurs = [get_valeur_marchande(nom) for nom in top_profiles["Name"]]
 
         top_profiles_valeurs = top_profiles.copy()
