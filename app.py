@@ -24,7 +24,7 @@ import streamlit as st
 # ----------------------------------------------------------------------------
 st.set_page_config(
     page_title="Scouting — Trouver un profil",
-    page_icon="⚽",
+    # page_icon="⚽",
     layout="wide",
 )
 
