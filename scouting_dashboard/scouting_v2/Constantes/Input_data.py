@@ -94,7 +94,10 @@ COLONNES_TABLEAU = [
 COULEUR_HISTOGRAMME = "#3B82F6"
 COULEUR_BOXPLOT = "#55A868"
 COULEURS_PIED = {"Droitier": "#8B5CF6", "Gaucher": "#EC4899"}
-PALETTE_SCATTER = "Viridis"
+PALETTE_SCATTER = [
+    [0.0, "#2E7D32"],   # vert foncé
+    [1.0, "#F9E547"],   # jaune
+]
 
 
 @st.cache_data
