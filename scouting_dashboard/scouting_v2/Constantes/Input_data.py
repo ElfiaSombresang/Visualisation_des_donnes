@@ -55,18 +55,21 @@ POSITIONS_LABELS = {
 
 # Regroupement par famille : sélectionner "Ailier" renvoie LW + RW, etc.
 POSITIONS_GROUPES = {
-    "Gardien":            ["GK"],
-    "Défenseur central":  ["CB"],
-    "Arrière latéral":    ["LB", "RB"],
-    "Milieu défensif":    ["CDM"],
-    "Milieu central":     ["CM"],
-    "Milieu offensif":    ["CAM"],
-    "Milieu latéral":     ["LM", "RM"],
-    "Ailier":             ["LW", "RW"],
-    "Attaquant":          ["ST"],
+    "Gardien":                  ["GK"],
+    "Défenseur central":        ["CB"],
+    "Arrière latéral droit":    ["RB"],
+    "Arrière latéral gauche":   ["LB"],
+    "Milieu défensif":          ["CDM"],
+    "Milieu central":           ["CM"],
+    "Milieu offensif":          ["CAM"],
+    "Milieu latéral droit":     ["RM"],
+    "Milieu latéral gauche":    ["LM"],
+    "Ailier droit":             ["RW"],
+    "Ailier gauche":            ["LW"],
+    "Attaquant":                ["ST"],
 }
 
-GROUPE_AILIER_PAR_DEFAUT = ["Ailier"]
+GROUPE_AILIER_PAR_DEFAUT = ["Ailier droit", "Ailier gauche"]
 GENRES = {"Hommes": "M", "Femmes": "F"}
 OVR_DEFAUT = 75
 PAC_DEFAUT = 75
