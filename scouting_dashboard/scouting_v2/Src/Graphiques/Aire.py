@@ -76,25 +76,23 @@ def barplot_pied_prefere(df):
 
 
 
-def barres_top10_vs_moyenne(df_top10, df_filtre, critere_tri):
-    """Barres horizontales : OVR/PAC/DRI des joueurs du top 10, comparés à la
-    moyenne du vivier filtré, classés dans l'ordre décroissant du critère choisi."""
-    stats = ["OVR", "PAC", "DRI"]
+def barres_top10(df_top10, critere_tri, stats=None):
+    """Barres horizontales : stats choisies (OVR/PAC/DRI) des joueurs du top 10,
+    classés dans l'ordre décroissant du critère choisi."""
+    if not stats:
+        stats = ["OVR", "PAC", "DRI"]
 
-    data = df_top10[["Name"] + stats].copy()
+    couleurs_stats = {"OVR": "#4C72B0", "PAC": "#55A868", "DRI": "#C44E52"}
 
-    moyennes = {"Name": "Moyenne (vivier filtré)"}
-    for s in stats:
-        moyennes[s] = df_filtre[s].mean()
-    data = pd.concat([data, pd.DataFrame([moyennes])], ignore_index=True)
+    data_long = df_top10.melt(
+        id_vars="Name",
+        value_vars=stats,
+        var_name="Statistique",
+        value_name="Valeur",
+    )
 
-    data_long = data.melt(id_vars="Name", value_vars=stats, var_name="Statistique", value_name="Valeur")
-
-    # Plotly place le premier élément de la liste en bas du graphique horizontal :
-    # on met la moyenne en premier (tout en bas), puis les joueurs du plus faible
-    # au plus fort (critere_tri croissant) pour que le meilleur profil finisse en haut.
+    # premier joueur du classement en haut du graphique
     ordre_joueurs = df_top10.sort_values(by=critere_tri, ascending=True)["Name"].tolist()
-    ordre_categories = ["Moyenne (vivier filtré)"] + ordre_joueurs
 
     fig = px.bar(
         data_long,
@@ -103,13 +101,13 @@ def barres_top10_vs_moyenne(df_top10, df_filtre, critere_tri):
         color="Statistique",
         barmode="group",
         orientation="h",
-        category_orders={"Name": ordre_categories},
-        color_discrete_map={"OVR": "#4C72B0", "PAC": "#55A868", "DRI": "#C44E52"},
+        category_orders={"Name": ordre_joueurs},
+        color_discrete_map={s: couleurs_stats[s] for s in stats},
         labels={"Valeur": "Note", "Name": ""},
     )
     fig.update_layout(
         margin=dict(t=10, b=10),
-        xaxis_range=[0, 100],  # barres à zéro + échelle fixe (0-100), honnêteté visuelle
+        xaxis_range=[0, 100],
         legend_title_text="",
         height=450,
     )
