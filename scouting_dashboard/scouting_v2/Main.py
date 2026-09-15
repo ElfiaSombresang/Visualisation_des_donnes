@@ -11,6 +11,7 @@ Lancer avec : streamlit run Main.py
 """
 
 import streamlit as st
+import requests
 
 from Constantes.Input_data import charger_donnees, COULEUR_HISTOGRAMME
 from Src.Barre_filtre import afficher_filtres
@@ -20,6 +21,7 @@ from Src.Graphiques.Scatter import scatter_vitesse_dribble
 from Src.Graphiques.histo import histogramme_dribble, histogramme_vitesse
 from Src.Graphiques.barchart import barplot_pied_prefere, barres_top10
 from Src.Graphiques.radar import radar_comparaison
+from PlayerElo import get_valeur_marchande
 
 st.set_page_config(page_title="Scouting — Recherche de profils", layout="wide")
 
@@ -143,6 +145,30 @@ if stats_choisies:
 
 else:
     st.info("Sélectionnez au moins une statistique pour afficher le graphique.")
+
+st.markdown("#### Valeur marchande estimée (PlayerElo)")
+st.caption(
+    "Optionnel : interroge l'API PlayerElo pour estimer la valeur marchande des "
+    "10 joueurs ci-dessus. Consomme jusqu'à 10 requêtes de ton quota gratuit "
+    "(500/mois) à chaque clic ; certains joueurs peuvent rester introuvables si "
+    "l'API ne propose pas de recherche par nom."
+)
+
+if st.button("Récupérer les valeurs marchandes (PlayerElo)"):
+    try:
+        with st.spinner("Interrogation de l'API PlayerElo..."):
+            valeurs = [get_valeur_marchande(nom) for nom in top_profiles["Name"]]
+
+        top_profiles_valeurs = top_profiles.copy()
+        top_profiles_valeurs["Valeur marchande (€)"] = [
+            f"{v:,.0f} €".replace(",", " ") if v is not None else "Non trouvé"
+            for v in valeurs
+        ]
+        st.dataframe(top_profiles_valeurs, use_container_width=True, height=400)
+    except RuntimeError as erreur:
+        st.error(str(erreur))
+    except requests.exceptions.RequestException as erreur:
+        st.error(f"Erreur réseau ou quota dépassé : {erreur}")
 
 st.divider()
 
