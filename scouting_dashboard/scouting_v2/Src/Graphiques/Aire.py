@@ -29,6 +29,22 @@ def histogramme_dribble(df):
     )
     return fig
 
+def histogramme_vitesse(df):
+    """Distribution de la note de vitesse (PAC) dans le vivier filtré."""
+    fig = px.histogram(
+        df,
+        x="PAC",
+        nbins=20,
+        color_discrete_sequence=[COULEUR_HISTOGRAMME],
+        labels={"PAC": "Note de vitesse (PAC)"},
+    )
+    fig.update_layout(
+        yaxis_title="Nombre de joueurs",
+        bargap=0.05,
+        margin=dict(t=10, b=10),
+    )
+    return fig
+
 
 def boxplot_vitesse_par_championnat(df, max_championnats: int = 8):
     """Compare la vitesse (PAC) entre championnats (les plus représentés dans la sélection)."""

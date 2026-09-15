@@ -19,6 +19,7 @@ from Src.Analyse.Tri import trier_profils
 from Src.Graphiques.Scatter import scatter_vitesse_dribble
 from Src.Graphiques.Aire import (
     histogramme_dribble,
+    histogramme_vitesse,
     boxplot_vitesse_par_championnat,
     radar_comparaison,
 )
@@ -82,8 +83,8 @@ with col1:
     # )
 
 with col2:
-    st.markdown("#### Vitesse (PAC) par championnat")
-    st.plotly_chart(boxplot_vitesse_par_championnat(filtered), use_container_width=True)
+    st.markdown("#### Distribution du vitesse (PAC)")
+    st.plotly_chart(histogramme_vitesse(filtered), use_container_width=True)
     # st.caption(
     #     "**Pourquoi un boxplot ?** Il compare médiane et dispersion de PAC entre "
     #     "championnats (quantitative × catégorielle) sur un axe commun, pour repérer où "
