@@ -97,7 +97,7 @@ COULEURS_PIED = {"Droitier": "#8B5CF6", "Gaucher": "#EC4899"}
 PALETTE_SCATTER = [
     [0.0, "#E65100"],   # orange
     [0.5, "#F9E547"],   # jaune
-    [1.0, "#2E7D32"],   # vert
+    [1.0, "#00C853"],   # vert
 ]
 
 
