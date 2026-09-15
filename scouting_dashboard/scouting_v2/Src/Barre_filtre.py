@@ -22,6 +22,25 @@ def afficher_filtres(df) -> dict:
     """Affiche les filtres dans la sidebar et renvoie les valeurs sélectionnées."""
     st.sidebar.header("🔎 Filtres")
 
+    #Genre : Hommes / Femmes
+    selected_genres_labels = st.sidebar.multiselect(
+        "Genre",
+        options=list(GENRES.keys()),
+        default=list(GENRES.keys()),
+    )
+    selected_genres = [GENRES[label] for label in selected_genres_labels]
+
+
+    # Age : slider
+    age_min, age_max = int(df["Age"].min()), int(df["Age"].max())
+    age_range = st.sidebar.slider(
+        "Âge",
+        min_value=age_min,
+        max_value=age_max,
+        value=(age_min, age_max),
+    )
+
+    # Championnat : multiselect + boutons "Tout sélectionner / Tout désélectionner"
     leagues_available = sorted(df["League"].dropna().unique().tolist())
 
     col_a, col_b = st.sidebar.columns(2)
@@ -43,6 +62,7 @@ def afficher_filtres(df) -> dict:
         value=True,
     )
 
+    # Postes : multiselect regroupé par famille (ex. "Ailier" = LW + RW)
     groupes_disponibles = [
         g for g in POSITIONS_GROUPES
         if any(code in df["Position"].unique() for code in POSITIONS_GROUPES[g])
@@ -60,6 +80,7 @@ def afficher_filtres(df) -> dict:
         for code in POSITIONS_GROUPES[groupe]
     ]
 
+    # OVR / PAC / DRI : sliders
     ovr_min = st.sidebar.slider(
         "OVR minimum (note générale)",
         min_value=int(df["OVR"].min()),
@@ -81,20 +102,6 @@ def afficher_filtres(df) -> dict:
         value=DRI_DEFAUT,
     )
 
-    age_min, age_max = int(df["Age"].min()), int(df["Age"].max())
-    age_range = st.sidebar.slider(
-        "Âge",
-        min_value=age_min,
-        max_value=age_max,
-        value=(age_min, age_max),
-    )
-
-    selected_genres_labels = st.sidebar.multiselect(
-        "Genre",
-        options=list(GENRES.keys()),
-        default=list(GENRES.keys()),
-    )
-    selected_genres = [GENRES[label] for label in selected_genres_labels]
 
     return {
         "leagues": selected_leagues,
