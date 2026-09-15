@@ -9,12 +9,12 @@ délégué à Src.Analyse.Filtre pour séparer "affichage" et "calcul".
 import streamlit as st
 
 from Constantes.Input_data import (
-    POSITIONS_GROUPES,
-    GROUPE_AILIER_PAR_DEFAUT,
     OVR_DEFAUT,
     PAC_DEFAUT,
     DRI_DEFAUT,
     GENRES,
+    POSITIONS_GROUPES,
+    GROUPE_AILIER_PAR_DEFAUT,
 )
 
 
@@ -23,11 +23,19 @@ def afficher_filtres(df) -> dict:
     st.sidebar.header("🔎 Filtres")
 
     leagues_available = sorted(df["League"].dropna().unique().tolist())
+
+    col_a, col_b = st.sidebar.columns(2)
+    if col_a.button("Tout sélectionner", use_container_width=True):
+        st.session_state["leagues_filtre"] = leagues_available
+    if col_b.button("Tout désélectionner", use_container_width=True):
+        st.session_state["leagues_filtre"] = []
+
     selected_leagues = st.sidebar.multiselect(
         "Championnat",
         options=leagues_available,
         default=leagues_available,
-        help="Par défaut, tous les championnats sont inclus.",
+        key="leagues_filtre",
+        help="Champ déroulant à choix multiple : cliquez pour ajouter/retirer un championnat, ou tapez pour rechercher.",
     )
 
     exclude_big5 = st.sidebar.checkbox(
@@ -35,14 +43,22 @@ def afficher_filtres(df) -> dict:
         value=True,
     )
 
-    positions_available = sorted(df["Position"].dropna().unique().tolist())
-    default_positions = [p for p in POSITIONS_AILIERS_PAR_DEFAUT if p in positions_available]
-    selected_positions = st.sidebar.multiselect(
+    groupes_disponibles = [
+        g for g in POSITIONS_GROUPES
+        if any(code in df["Position"].unique() for code in POSITIONS_GROUPES[g])
+    ]
+    groupes_selectionnes = st.sidebar.multiselect(
         "Poste",
-        options=positions_available,
-        default=default_positions,
-        help="LW/RW = ailiers gauche/droit.",
+        options=groupes_disponibles,
+        default=[g for g in GROUPE_AILIER_PAR_DEFAUT if g in groupes_disponibles],
+        help="Regroupement par famille (ex. « Ailier » = ailier gauche + ailier droit).",
     )
+    # on déplie les familles choisies en codes de poste réels (LW, RW, ...)
+    selected_positions = [
+        code
+        for groupe in groupes_selectionnes
+        for code in POSITIONS_GROUPES[groupe]
+    ]
 
     ovr_min = st.sidebar.slider(
         "OVR minimum (note générale)",
