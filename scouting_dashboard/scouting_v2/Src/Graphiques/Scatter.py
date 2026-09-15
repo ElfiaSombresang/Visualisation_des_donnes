@@ -62,5 +62,7 @@ def scatter_vitesse_dribble(df):
             annotation_position="left",       # côté gauche : la colorbar OVR est à droite
             annotation_font_size=9,
         )
+    fig.update_xaxes(showticklabels=False)
+    fig.update_yaxes(showticklabels=False)
 
     return fig
