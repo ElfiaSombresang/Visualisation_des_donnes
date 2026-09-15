@@ -164,6 +164,8 @@ selected_players = st.multiselect(
 )
 
 if len(selected_players) >= 2:
-    st.pyplot(radar_comparaison(filtered, selected_players))
+    col_gauche, col_centre, col_droite = st.columns([1, 2, 1])
+    with col_centre:
+        st.pyplot(radar_comparaison(filtered, selected_players))
 else:
     st.info("Sélectionnez au moins 2 joueurs pour afficher le radar.")
