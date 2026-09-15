@@ -15,7 +15,6 @@ from Constantes.Input_data import (
     COULEURS_PIED,
 )
 
-
 def histogramme_dribble(df):
     """Distribution de la note de dribble (DRI) dans le vivier filtré."""
     fig = px.histogram(
