@@ -91,14 +91,16 @@ with col2:
     #     "représentés dans la sélection, pour la lisibilité)."
     # )
 
-st.markdown("#### Relation entre vitesse (PAC) et dribble (DRI)")
-st.plotly_chart(scatter_vitesse_dribble(filtered), use_container_width=True)
-# st.caption(
-#     "**Pourquoi un nuage de points ?** C'est la question métier elle-même : croiser deux "
-#     "variables quantitatives (vitesse et dribble) pour repérer les joueurs qui cumulent les "
-#     "deux qualités (en haut à droite) ; la couleur (dégradé séquentiel) indique leur niveau "
-#     "général (OVR)."
-# )
+col3, col4 = st.columns(2)
+
+with col3:
+    st.markdown("#### Relation entre vitesse (PAC) et dribble (DRI)")
+    st.plotly_chart(scatter_vitesse_dribble(filtered), use_container_width=True)
+    # st.caption(
+    #     "**Pourquoi un nuage de points ?** Croiser vitesse et dribble permet de repérer "
+    #     "les joueurs qui cumulent les deux qualités. Les lignes Q1/médiane/Q3 (grises) "
+    #     "situent chaque joueur par rapport au reste du vivier filtré."
+    # )
 
 st.divider()
 
