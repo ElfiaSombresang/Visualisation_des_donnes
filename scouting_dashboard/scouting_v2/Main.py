@@ -123,7 +123,7 @@ st.subheader("Top 10 des meilleurs profils")
 
 critere_tri = st.radio(
     "Trier par",
-    options=["OVR", "PAC", "DRI"],
+    options=["OVR", "PAC", "DRI", "Pied de préférence"],
     horizontal=True,
 )
 
